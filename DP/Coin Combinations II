@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for (int i=1;i<=n;i++)
+#define mod 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pii pair<int,int>
+#define vi vector<int>
+#define vl vector<long long int>
+#define vii vector<pair<int,int>>
+#define lli long long int
+#define lld double
+#define mod 1000000007
+#define siz 100003
+#define larg 1e9
+ 
+using namespace std;
+ 
+void preprep()
+{
+	ios_base :: sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+}
+ 
+lli n , x;
+vector<lli> coins;
+ 
+void solve()
+{
+        cin>>n>>x;
+        coins.resize(n);
+ 
+        for(lli i=0 ; i<n ; i++)    cin>>coins[i];
+ 
+        vector<lli> dp(x+1 , 0);
+        dp[0] = 1;
+ 
+        for(auto j : coins)
+        {
+ 
+            for(lli i=1 ; i<=x ; i++)
+            {
+                bool isPoss = (i >=j )  && (dp[i-j] !=0);
+                if(!isPoss)    continue;
+ 
+                dp[i] = (dp[i] + dp[i-j]) % mod;
+            }
+        }
+ 
+        cout<<dp[x]<<"\n";
+ 
+}
+ 
+ 
+int main()
+{
+    preprep();
+    lli q =1 ;
+    //cin>>q;
+    while(q--)  solve();
+}
