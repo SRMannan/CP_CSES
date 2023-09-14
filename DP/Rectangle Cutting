@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for (int i=1;i<=n;i++)
+#define mod 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pii pair<int,int>
+#define vi vector<int>
+#define vl vector<long long int>
+#define vii vector<pair<int,int>>
+#define lli long long int
+#define lld double
+#define mod 1000000007
+#define siz 1000002
+#define larg 1e9
+ 
+using namespace std;
+ 
+void preprep()
+{
+	ios_base :: sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+}
+ 
+lli a , b;
+ 
+void solve()
+{
+    cin>>a>>b;
+ 
+    if(a>b)     swap(a,b);
+ 
+    vector<vector<lli>> grid(a , vector<lli>(b , 1e9));
+ 
+    for(lli row = 0 ; row < a ; row++)
+    {
+        for(lli col = 0 ; col < b ; col++)
+        {
+            if(row > col)           grid[row][col] = grid[col][row];
+            else if(row == col)     grid[row][col] = 0;
+            else
+            {
+                //we need to produce cuts and apply the DP
+                //this is the logic for the horizontal cuts
+                for(lli i=0 ; i<row ; i++)
+                {
+                    lli cut = 1 + grid[i][col] + grid[row-i-1][col];
+                    grid[row][col] = min(grid[row][col] , cut);
+                }
+ 
+                //this is the logic for vertical cuts
+                for(lli i=0 ; i<col ; i++)
+                {
+                    lli cut = 1 + grid[row][i] + grid[row][col-i-1];
+                    grid[row][col] = min(grid[row][col] , cut);
+                }
+            }
+        }
+    }
+ 
+    cout<<grid[a-1][b-1]<<'\n';
+ 
+}
+ 
+ 
+ 
+ 
+ 
+int main()
+{
+    preprep();
+    lli q = 1;
+    //cin>>q;
+    while(q--)      solve();
+ 
+}
