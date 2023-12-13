@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for (int i=1;i<=n;i++)
+#define mod 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pii pair<int,int>
+#define vi vector<int>
+#define vl vector<long long int>
+#define vii vector<pair<int,int>>
+#define lld double
+#define mod 1000000007
+#define larg 1e9
+#define lli long long int
+
+using namespace std;
+
+void preprep()
+{
+	ios_base :: sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+}
+
+lli n , m;
+multiset<lli> ms;
+
+void solve()
+{
+    cin>>n>>m;
+
+    for(lli i=0 ; i<n ; i++)
+    {
+        lli x;
+        cin>>x;
+        ms.insert(-x);
+    }
+
+    for(lli i=0 ; i<m ; i++)
+    {
+        lli ele;
+        cin>>ele;
+
+        if(ms.lower_bound(-ele) == ms.end())         cout<<"-1\n";
+        else                                        cout<<-(*(ms.lower_bound(-ele)))<<"\n" , ms.erase(ms.lower_bound(-ele));
+    }
+}
+
+int main()
+{
+    preprep();
+    lli q = 1;
+    //cin>>q;
+    while(q--)      solve();
+
+}
