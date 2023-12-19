@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for (int i=1;i<=n;i++)
+#define mod 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pii pair<int,int>
+#define vi vector<int>
+#define vl vector<long long int>
+#define vii vector<pair<int,int>>
+#define lld double
+#define mod 1000000007
+#define larg 1e9
+#define lli long long int
+
+using namespace std;
+
+void preprep()
+{
+	ios_base :: sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+}
+
+lli n , x;
+vector<pii> arr , brr;
+
+
+void solve()
+{
+    cin>>n;
+    arr.resize(n);
+
+    for(lli i=0 ; i<n ; i++)
+    {
+        lli x;
+        cin>>x;
+        arr[i] = {x,i};
+    }
+
+     sort(arr.begin() , arr.end());
+
+    lli ct = 1;
+    lli ele = arr[0].second;
+
+    for(lli i=1 ; i<n ; i++)
+    {
+        if(arr[i].second  < ele)    ct++;
+        ele = arr[i].second;
+    }
+
+    cout<<ct<<"\n";
+
+}
+
+int main()
+{
+    preprep();
+    lli q = 1;
+    //cin>>q;
+    while(q--)      solve();
+
+}
