@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for (int i=1;i<=n;i++)
+#define mod 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pii pair<int,int>
+#define vi vector<int>
+#define vl vector<long long int>
+#define vii vector<pair<int,int>>
+#define lld double
+#define mod 1000000007
+#define larg 1e9
+#define lli long long int
+#define ln "\n"
+ 
+using namespace std;
+ 
+void preprep()
+{
+	ios_base :: sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+}
+ 
+lli n , m;
+vector<lli> arr;
+vector<lli> idx;
+ 
+void solve()
+{
+    cin>>n>>m;
+    arr.resize(n+1) , idx.resize(n+1);
+ 
+    for(lli i=1 ; i<=n ; i++)
+    {
+        cin>>arr[i];
+        idx[arr[i]] = i;
+    }
+ 
+    lli ans=1;
+ 
+    for(lli i=1 ; i<n ; i++)        ans += (idx[i] > idx[i+1]);
+    set<pii> s;
+ 
+    while(m--)
+    {
+        lli l,r;
+        cin>>l>>r;
+ 
+        if(arr[l]+1 <= n)           s.insert({arr[l] , arr[l]+1});
+        if(arr[l]-1 >= 1)           s.insert({arr[l]-1 , arr[l]});
+        if(arr[r]+1 <= n)           s.insert({arr[r] , arr[r]+1});
+        if(arr[r]-1 >= 1)           s.insert({arr[r]-1 , arr[r]});
+ 
+        for(auto val : s)           ans -= (idx[val.first] > idx[val.second]);
+ 
+        swap(arr[l],arr[r]);
+        idx[arr[l]] = l;
+        idx[arr[r]] = r;
+ 
+        for(auto val : s)           ans += (idx[val.first] > idx[val.second]);
+        cout<<ans<<ln;
+        s.clear();
+    }
+ 
+}
+ 
+int main()
+{
+    preprep();
+    lli q = 1;
+    //cin>>q;
+    while(q--)      solve();
+ 
+}
